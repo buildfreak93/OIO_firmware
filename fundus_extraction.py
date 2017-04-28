@@ -38,21 +38,3 @@ class image_proc:
         
         # Masking the image.    
         return cv2.bitwise_and(image,image,mask=mask)
-
-    @staticmethod
-    def log_transform(image): 
-        return (np.log((image+0.01).astype('float'))*(255/np.log(256))).astype('uint8')
-
-    @staticmethod
-    def inv_log_transform(image):
-        return (np.exp(image.astype('float')*(np.log(256)/255)) - 0.01).astype('uint8')
-    
-    @staticmethod
-    def scale_image(img):
-        img = img.astype('float')
-        img2 = np.zeros_like(img)
-        for i in range(0,3):
-            minVal = img[:,:,i].min()
-            maxVal = img[:,:,i].max()
-            img2[:,:,i] = 255*((img[:,:,i]-minVal)/(maxVal-minVal))
-        return img2
